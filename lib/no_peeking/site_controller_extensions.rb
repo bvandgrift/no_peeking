@@ -11,7 +11,7 @@ module NoPeeking::SiteControllerExtensions
       
       unless @page.nil?
         request_host = request.env['HTTP_HOST'].gsub(/:[\d]*$/, '') #trim off #s at the end.
-        request.env['HTTP_REFERER'] =~ /^(http:\/\/)?([a-zA-Z.]*)(:[\d]*)?(\/)?$/ #grab the referring host
+        request.env['HTTP_REFERER'] =~ /^(http:\/\/)?([a-zA-Z.]*)(:[\d]*)?.*/ #grab the referring host
         request_referrer = $2
         if @page.no_peeking? && request_host != request_referrer
           redirect_to "/" and return
