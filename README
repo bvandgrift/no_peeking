@@ -1,3 +1,9 @@
 = No Peeking
 
-Description goes here
+This extension adds a checkbox to the page editor, allowing a user to 
+specify that the page cannot be reached from a deep link from outside
+the home site.  It check the incoming referrer (referer) and redirects
+to the site's home page if it is not the expected site url.
+
+NOTE: if you are using an extension which has futzed with site_controller's
+show_uncached_page method, there may be complication.

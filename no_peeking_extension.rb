@@ -1,21 +1,19 @@
 # Uncomment this if you reference any of your controllers in activate
-# require_dependency 'application'
+require_dependency 'application'
 
 class NoPeekingExtension < Radiant::Extension
-  version "1.0"
-  description "Describe your extension here"
-  url "http://yourwebsite.com/no_peeking"
-  
-  # define_routes do |map|
-  #   map.connect 'admin/no_peeking/:action', :controller => 'admin/no_peeking'
-  # end
-  
+  version "0.1"
+  description "Redirecting deep links when needed."
+  url "http://github.com/sfamiliar/no_peeking/tree/master/"
+    
   def activate
-    # admin.tabs.add "No Peeking", "/admin/no_peeking", :after => "Layouts", :visibility => [:all]
+    SiteController.send :include, NoPeeking::SiteControllerExtensions
+    if admin.respond_to? :page
+      admin.page.edit.add :parts_bottom, "no_peeking_enabled", :before => "edit_timestamp"
+    end
   end
   
   def deactivate
-    # admin.tabs.remove "No Peeking"
   end
   
 end
